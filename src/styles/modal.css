@@ -15,17 +15,27 @@
   flex-direction: column;
   border: 1px solid rgba(0, 0, 0, .2);
   background-color: white;
+  border-radius: 15px;
 }
 
 .modal-header {
   display: flex;
+  flex-direction: column-reverse;
   align-items: center;
   justify-content: space-between;
   min-width: 300px;
-  padding: 1rem;
-  border-bottom: 1px solid #e9ecef;
+  padding: 0.5rem 1rem;
   font-weight: 700;
   font-size: 22px;
+}
+
+.modal-header span {
+  color: black;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 1px;
+  font-size: 35px;
+  font-family: 'Arial Black';
+  font-weight: 700;
 }
 
 .modal-body {
@@ -33,6 +43,7 @@
 }
 
 .close-btn {
+  align-self: flex-end;
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1;
