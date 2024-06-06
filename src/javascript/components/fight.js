@@ -19,11 +19,8 @@ export function getHitPower(fighter) {
 }
 
 export function getBlockPower(fighter) {
-    // return block power
-
-    // code to pass linter check, delete later
-    return [controls.PlayerOneAttack, fighter.health];
-    // code to pass linter, delete later
+    const dodgeChance = Math.random() + 1;
+    return fighter.defense * dodgeChance;
 }
 
 export function getDamage(attacker, defender) {
