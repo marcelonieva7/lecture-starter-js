@@ -5,17 +5,15 @@ export async function fight(firstFighter, secondFighter) {
         // resolve the promise with the winner when fight is over
 
         // code to pass linter check, delete later
+        console.error(controls);
         if (firstFighter.health > secondFighter.health) resolve(firstFighter);
         // code to pass linter check, delete later
     });
 }
 
 export function getHitPower(fighter) {
-    // return hit power
-
-    // code to pass linter check, delete later
-    return [controls.PlayerOneAttack, fighter.health];
-    // code to pass linter, delete later
+    const criticalHitChance = Math.random() + 1;
+    return fighter.attack * criticalHitChance;
 }
 
 export function getBlockPower(fighter) {
