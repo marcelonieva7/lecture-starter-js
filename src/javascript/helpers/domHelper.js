@@ -10,3 +10,10 @@ export default function createElement({ tagName, className, attributes = {} }) {
 
     return element;
 }
+
+export function getFighterImg(position) {
+    const imgFighter = document.querySelector(`.arena___${position}-fighter .fighter-preview___img`);
+
+    if (imgFighter) return imgFighter;
+    throw new Error('Img not found');
+}
