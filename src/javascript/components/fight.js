@@ -125,7 +125,14 @@ export async function fight(firstFighter, secondFighter) {
                 imgFighter.classList.remove('fighter-preview___attack');
             }, 300);
         }
+
+        function block(fighterStatus) {
+            fighterStatus.setBlocking(true);
+            const imgFighter = getFighterImg(fighterStatus.position);
+            imgFighter.classList.add('fighter-preview___defense');
+        }
         // code to pass linter check, delete later
+        block(firstFighterStatus, secondFighterStatus);
         attack(firstFighterStatus, secondFighterStatus);
         if (firstFighterStatus.health > secondFighterStatus.health) resolve(firstFighter);
         // code to pass linter check, delete later
