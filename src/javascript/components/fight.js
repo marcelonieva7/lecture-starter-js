@@ -106,8 +106,27 @@ export async function fight(firstFighter, secondFighter) {
             }
         }
 
+        function attack(attackerStatus, defenderStatus) {
+            const isAttBlocking = attackerStatus.blocking;
+            const isDefBlocking = defenderStatus.blocking;
+            const imgFighter = getFighterImg(attackerStatus.position);
+            if (!isAttBlocking) {
+                attackerStatus.setAttacking(true);
+                imgFighter.classList.add('fighter-preview___attack');
+
+                if (!isDefBlocking) {
+                    updateFightStatus(attackerStatus, defenderStatus);
+                }
+
+                attackerStatus.setAttacking(false);
+            }
+
+            setTimeout(() => {
+                imgFighter.classList.remove('fighter-preview___attack');
+            }, 300);
+        }
         // code to pass linter check, delete later
-        updateFightStatus(firstFighterStatus, secondFighterStatus, true);
+        attack(firstFighterStatus, secondFighterStatus);
         if (firstFighterStatus.health > secondFighterStatus.health) resolve(firstFighter);
         // code to pass linter check, delete later
     });
