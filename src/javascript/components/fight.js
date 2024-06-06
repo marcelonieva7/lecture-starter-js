@@ -150,11 +150,36 @@ export async function fight(firstFighter, secondFighter) {
                 }, 900);
             }
         }
-        // code to pass linter check, delete later
-        block(firstFighterStatus, secondFighterStatus);
-        attack(firstFighterStatus, secondFighterStatus);
-        criticalAttack(controls.PlayerOneCriticalHitCombination[0], secondFighterStatus, firstFighterStatus);
-        if (firstFighterStatus.health > secondFighterStatus.health) resolve(firstFighter);
-        // code to pass linter check, delete later
+
+        const {
+            PlayerOneAttack,
+            PlayerOneBlock,
+            PlayerTwoAttack,
+            PlayerTwoBlock,
+            PlayerOneCriticalHitCombination,
+            PlayerTwoCriticalHitCombination
+        } = controls;
+        const [P1CriticalKey1, P1CriticalKey2, P1CriticalKey3] = PlayerOneCriticalHitCombination;
+        const [P2CriticalKey1, P2CriticalKey2, P2CriticalKey3] = PlayerTwoCriticalHitCombination;
+
+        const keyDownActions = {
+            [PlayerOneAttack]: () => attack(firstFighterStatus, secondFighterStatus),
+            [PlayerOneBlock]: () => block(firstFighterStatus),
+
+            [PlayerTwoAttack]: () => attack(secondFighterStatus, firstFighterStatus),
+            [PlayerTwoBlock]: () => block(secondFighterStatus),
+
+            [P1CriticalKey1]: () => criticalAttack(P1CriticalKey1, firstFighterStatus, secondFighterStatus),
+            [P1CriticalKey2]: () => criticalAttack(P1CriticalKey2, firstFighterStatus, secondFighterStatus),
+            [P1CriticalKey3]: () => criticalAttack(P1CriticalKey3, firstFighterStatus, secondFighterStatus),
+
+            [P2CriticalKey1]: () => criticalAttack(P2CriticalKey1, secondFighterStatus, firstFighterStatus),
+            [P2CriticalKey2]: () => criticalAttack(P2CriticalKey2, secondFighterStatus, firstFighterStatus),
+            [P2CriticalKey3]: () => criticalAttack(P2CriticalKey3, secondFighterStatus, firstFighterStatus)
+        };
+
+        document.addEventListener('keydown', event => {
+            if (keyDownActions[event.code] && !event.repeat) keyDownActions[event.code]();
+        });
     });
 }
