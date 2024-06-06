@@ -17,3 +17,9 @@ export function getFighterImg(position) {
     if (imgFighter) return imgFighter;
     throw new Error('Img not found');
 }
+
+export function getHealthBar(position) {
+    const healthBar = document.getElementById(`${position}-fighter-indicator`);
+    if (healthBar) return healthBar;
+    throw new Error('Health Bar not found');
+}
