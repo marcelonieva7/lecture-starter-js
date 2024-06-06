@@ -23,3 +23,19 @@ export function getHealthBar(position) {
     if (healthBar) return healthBar;
     throw new Error('Health Bar not found');
 }
+
+export function animateCriticalBar(position) {
+    const progressBar = document.getElementById(`${position}-fighter-critical-indicator`);
+    if (progressBar.classList.contains('blink')) {
+        progressBar.classList.remove('blink');
+    }
+    let width = 0;
+    const interval = setInterval(() => {
+        width += 1;
+        progressBar.style.width = `${width}%`;
+        if (width >= 100) {
+            clearInterval(interval);
+            progressBar.classList.add('blink');
+        }
+    }, 100);
+}
