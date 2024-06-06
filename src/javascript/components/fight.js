@@ -139,7 +139,9 @@ export async function fight(firstFighter, secondFighter) {
             if (attackerStatus.isCriticalHitReady() && !attackerStatus.blocking) {
                 attackerStatus.updateLastCriticalTime();
                 const attackerImg = getFighterImg(attackerStatus.position);
+                const defenderImg = getFighterImg(defenderStatus.position);
                 const hadouken = document.getElementById(`${position}-fighter-hadouken`);
+                defenderImg.classList.add('fighter-preview___critical-damage');
                 attackerImg.classList.add('fighter-preview___critical-attack');
                 hadouken.classList.add(`${position}-fighter-hadouken`);
                 animateCriticalBar(position);
@@ -148,6 +150,7 @@ export async function fight(firstFighter, secondFighter) {
                 setTimeout(() => {
                     attackerImg.classList.remove('fighter-preview___critical-attack');
                     hadouken.classList.remove(`${position}-fighter-hadouken`);
+                    defenderImg.classList.remove('fighter-preview___critical-damage');
                 }, 900);
             }
         }

@@ -118,7 +118,6 @@
   transform: scaleX(-1) translate(var(--attack-move-size)); 
 }
 
-
 .fighter-preview___defense {
   filter: drop-shadow(100px 0px 30px rgba(255, 0, 0, 0.75))
           hue-rotate(230deg);
@@ -140,6 +139,10 @@
 
 .arena___right-fighter .fighter-preview___critical-attack {
   animation: impactRight 0.9s ease-in-out forwards;
+}
+
+.fighter-preview___critical-damage {
+  animation: invert-blink 0.25s infinite 0.4s;
 }
 
 .fighter-preview___hadouken {
@@ -200,6 +203,15 @@
   }
   to {
     background-color: rgb(248, 69, 69);
+  }
+}
+
+@keyframes invert-blink {
+  0%, 100% {
+    filter: invert(0);
+  }
+  50% {
+    filter: invert(1);
   }
 }
 
