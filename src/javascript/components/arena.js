@@ -3,6 +3,16 @@ import { fight } from './fight';
 import { createFighterImage } from './fighterPreview';
 import showWinnerModal from './modal/winner';
 
+function createHadouken(position) {
+    const hadouken = createElement({
+        tagName: 'div',
+        className: 'fighter-preview___hadouken',
+        attributes: { id: `${position}-fighter-hadouken` }
+    });
+
+    return hadouken;
+}
+
 function createFighter(fighter, position) {
     const imgElement = createFighterImage(fighter);
     const positionClassName = position === 'right' ? 'arena___right-fighter' : 'arena___left-fighter';
@@ -10,8 +20,9 @@ function createFighter(fighter, position) {
         tagName: 'div',
         className: `arena___fighter ${positionClassName}`
     });
+    const hadouken = createHadouken(position);
 
-    fighterElement.append(imgElement);
+    fighterElement.append(imgElement, hadouken);
     return fighterElement;
 }
 
