@@ -21,6 +21,10 @@ export function getBlockPower(fighter) {
     return fighter.defense * dodgeChance;
 }
 
+export function getCriticalDamagePwr(fighter) {
+    return 2 * fighter.attack;
+}
+
 export function getDamage(attacker, defender) {
     const blockPower = getBlockPower(defender);
     const hitPower = getHitPower(attacker);
