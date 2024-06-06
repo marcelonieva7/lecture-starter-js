@@ -24,6 +24,19 @@ function createFighters(firstFighter, secondFighter) {
     return battleField;
 }
 
+function createCriticalIndicator(position) {
+    const indicator = createElement({ tagName: 'div', className: 'arena___critical-indicator' });
+    const bar = createElement({
+        tagName: 'div',
+        className: 'arena___critical-bar blink',
+        attributes: { id: `${position}-fighter-critical-indicator` }
+    });
+
+    indicator.append(bar);
+
+    return indicator;
+}
+
 function createHealthIndicator(fighter, position) {
     const { name } = fighter;
     const container = createElement({ tagName: 'div', className: 'arena___fighter-indicator' });
@@ -34,10 +47,11 @@ function createHealthIndicator(fighter, position) {
         className: 'arena___health-bar',
         attributes: { id: `${position}-fighter-indicator` }
     });
+    const critical = createCriticalIndicator(position);
 
     fighterName.innerText = name;
     indicator.append(bar);
-    container.append(fighterName, indicator);
+    container.append(fighterName, indicator, critical);
 
     return container;
 }
