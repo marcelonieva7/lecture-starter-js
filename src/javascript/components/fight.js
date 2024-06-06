@@ -1,5 +1,5 @@
 import controls from '../../constants/controls';
-import { getHealthBar, getFighterImg } from '../helpers/domHelper';
+import { getHealthBar, getFighterImg, animateCriticalBar } from '../helpers/domHelper';
 
 export function getHitPower(fighter) {
     const criticalHitChance = Math.random() + 1;
@@ -131,9 +131,29 @@ export async function fight(firstFighter, secondFighter) {
             const imgFighter = getFighterImg(fighterStatus.position);
             imgFighter.classList.add('fighter-preview___defense');
         }
+
+        function criticalAttack(key, attackerStatus, defenderStatus) {
+            const { position } = attackerStatus;
+            attackerStatus.toggleKeyStatus(key);
+            if (attackerStatus.isCriticalHitReady() && !attackerStatus.blocking) {
+                attackerStatus.updateLastCriticalTime();
+                const attackerImg = getFighterImg(attackerStatus.position);
+                const hadouken = document.getElementById(`${position}-fighter-hadouken`);
+                attackerImg.classList.add('fighter-preview___critical-attack');
+                hadouken.classList.add(`${position}-fighter-hadouken`);
+                animateCriticalBar(position);
+                updateFightStatus(attackerStatus, defenderStatus, true);
+
+                setTimeout(() => {
+                    attackerImg.classList.remove('fighter-preview___critical-attack');
+                    hadouken.classList.remove(`${position}-fighter-hadouken`);
+                }, 900);
+            }
+        }
         // code to pass linter check, delete later
         block(firstFighterStatus, secondFighterStatus);
         attack(firstFighterStatus, secondFighterStatus);
+        criticalAttack(controls.PlayerOneCriticalHitCombination[0], secondFighterStatus, firstFighterStatus);
         if (firstFighterStatus.health > secondFighterStatus.health) resolve(firstFighter);
         // code to pass linter check, delete later
     });
