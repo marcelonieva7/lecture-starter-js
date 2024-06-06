@@ -101,8 +101,9 @@
 
 .fighter-preview___img {
   --total-move-size: 37vw;
-  --transform-move-size: 12vw;
-  --shadow-move-size: calc(var(--total-move-size) - var(--transform-move-size));
+  --attack-move-size: 12vw;
+  --shadow-move-size: calc(var(--total-move-size) - var(--attack-move-size));
+  --defense-move-size: -7vw;
 
   filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0.8));
   transition: transform 0.15s linear, filter 0.15s ease 0.05s;
@@ -110,17 +111,22 @@
 
 .fighter-preview___attack {
   filter: drop-shadow(var(--shadow-move-size) 0 5px rgba(255, 0, 0, 0.55));
-  transform: translate(var(--transform-move-size));
+  transform: translate(var(--attack-move-size));
 }
 
 .arena___right-fighter .fighter-preview___attack {
-  transform: scaleX(-1) translate(var(--transform-move-size)); 
+  transform: scaleX(-1) translate(var(--attack-move-size)); 
 }
 
 
 .fighter-preview___defense {
   filter: drop-shadow(100px 0px 30px rgba(255, 0, 0, 0.75))
           hue-rotate(230deg);
+  transform: translate(var(--defense-move-size));
+}
+
+.arena___right-fighter .fighter-preview___defense {
+  transform: scaleX(-1) translate(var(--defense-move-size)); 
 }
 
 .fighter-preview___critical-attack {
@@ -213,7 +219,7 @@
   }
   50% {
     transform: translateX(calc(var(--haouken-move-size) / 2));
-    opacity: 1;
+    opacity: 0.75;
   }
   100% {
     transform: translateX(var(--haouken-move-size));
@@ -228,7 +234,7 @@
   }
   50% {
     transform: translateX(calc(var(--haouken-move-size-right) / 2));
-    opacity: 1;
+    opacity: 0.75;
   }
   100% {
     transform: translateX(var(--haouken-move-size-right));
