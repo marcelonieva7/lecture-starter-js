@@ -74,7 +74,7 @@
   height: 100%;
   width: 100%;
   background-color: #ebd759;
-  transition: width 0.3s ease, background-color 1.5s ease-in-out;
+  transition: width 0.3s ease, background-color 0.75s ease-in-out;
 }
 
 .arena___critical-bar {
@@ -90,19 +90,31 @@
   animation: blink 550ms infinite alternate;
 }
 
+.blink-health {
+  animation: blink-health 350ms infinite alternate;
+  }
+
 #left-fighter-indicator {
   position: absolute;
   right: 0;
 }
 
 .fighter-preview___img {
+  --total-move-size: 37vw;
+  --transform-move-size: 12vw;
+  --shadow-move-size: calc(var(--total-move-size) - var(--transform-move-size));
+
   filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0.8));
-  transition: filter 0.6s ease;
+  transition: transform 0.15s linear, filter 0.15s ease 0.05s;
 }
 
-
 .fighter-preview___attack {
-  filter: drop-shadow(500px 0 5px rgba(255, 0, 0, 0.5));
+  filter: drop-shadow(var(--shadow-move-size) 0 5px rgba(255, 0, 0, 0.55));
+  transform: translate(var(--transform-move-size));
+}
+
+.arena___right-fighter .fighter-preview___attack {
+  transform: scaleX(-1) translate(var(--transform-move-size)); 
 }
 
 
@@ -125,6 +137,9 @@
 }
 
 .fighter-preview___hadouken {
+  --haouken-move-size: 45vw;
+  --haouken-move-size-right: calc(-1 * var(--haouken-move-size));
+
   position: absolute;
   top: 25%;
   width: 150px;
@@ -182,17 +197,26 @@
   }
 }
 
+@keyframes blink-health {
+  from {
+    background-color: rgb(218, 136, 21);
+  }
+  to {
+    background-color: rgb(255, 35, 35);
+  }
+}
+
 @keyframes hadouken-animation {
   0% {
     transform: translateX(0);
     opacity: 1;
   }
   50% {
-    transform: translateX(250px);
+    transform: translateX(calc(var(--haouken-move-size) / 2));
     opacity: 1;
   }
   100% {
-    transform: translateX(500px);
+    transform: translateX(var(--haouken-move-size));
     opacity: 0;
   }
 }
@@ -203,11 +227,11 @@
     opacity: 1;
   }
   50% {
-    transform: translateX(-250px);
+    transform: translateX(calc(var(--haouken-move-size-right) / 2));
     opacity: 1;
   }
   100% {
-    transform: translateX(-500px);
+    transform: translateX(var(--haouken-move-size-right));
     opacity: 0;
   }
 }

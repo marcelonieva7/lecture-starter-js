@@ -96,7 +96,8 @@ export async function fight(firstFighter, secondFighter) {
             defenderStatus.subtractHealth(damage);
             const healthBar = getHealthBar(defenderStatus.position);
             const newWidth = (defenderStatus.health / defenderStatus.fighter.health) * 100;
-            if (newWidth <= 10) healthBar.style.backgroundColor = 'red';
+            if (newWidth <= 30) healthBar.style.backgroundColor = 'red';
+            if (newWidth <= 10) healthBar.classList.add('blink-health');
             healthBar.style.width = `${newWidth}%`;
 
             if (defenderStatus.health <= 0) {
