@@ -181,5 +181,27 @@ export async function fight(firstFighter, secondFighter) {
         document.addEventListener('keydown', event => {
             if (keyDownActions[event.code] && !event.repeat) keyDownActions[event.code]();
         });
+
+        const keyUpActions = {
+            [PlayerOneBlock]: () => {
+                getFighterImg(firstFighterStatus.position).classList.remove('fighter-preview___defense');
+                firstFighterStatus.setBlocking(false);
+            },
+            [PlayerTwoBlock]: () => {
+                getFighterImg(secondFighterStatus.position).classList.remove('fighter-preview___defense');
+                secondFighterStatus.setBlocking(false);
+            },
+
+            [P1CriticalKey1]: () => firstFighterStatus.toggleKeyStatus(P1CriticalKey1),
+            [P1CriticalKey2]: () => firstFighterStatus.toggleKeyStatus(P1CriticalKey2),
+            [P1CriticalKey3]: () => firstFighterStatus.toggleKeyStatus(P1CriticalKey3),
+            [P2CriticalKey1]: () => secondFighterStatus.toggleKeyStatus(P2CriticalKey1),
+            [P2CriticalKey2]: () => secondFighterStatus.toggleKeyStatus(P2CriticalKey2),
+            [P2CriticalKey3]: () => secondFighterStatus.toggleKeyStatus(P2CriticalKey3)
+        };
+
+        document.addEventListener('keyup', event => {
+            if (keyUpActions[event.code]) keyUpActions[event.code]();
+        });
     });
 }
