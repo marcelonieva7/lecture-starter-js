@@ -1,4 +1,5 @@
 import controls from '../../constants/controls';
+import { getHealthBar, getFighterImg } from '../helpers/domHelper';
 
 export function getHitPower(fighter) {
     const criticalHitChance = Math.random() + 1;
@@ -87,7 +88,26 @@ export async function fight(firstFighter, secondFighter) {
             'right'
         );
 
+        function updateFightStatus(attackerStatus, defenderStatus, isCritical) {
+            const damage = isCritical
+                ? getCriticalDamagePwr(attackerStatus.fighter)
+                : getDamage(attackerStatus.fighter, defenderStatus.fighter);
+
+            defenderStatus.subtractHealth(damage);
+            const healthBar = getHealthBar(defenderStatus.position);
+            const newWidth = (defenderStatus.health / defenderStatus.fighter.health) * 100;
+            if (newWidth <= 10) healthBar.style.backgroundColor = 'red';
+            healthBar.style.width = `${newWidth}%`;
+
+            if (defenderStatus.health <= 0) {
+                healthBar.style.width = '0';
+                getFighterImg(defenderStatus.position).style = 'filter: grayscale(1)';
+                resolve(attackerStatus.fighter);
+            }
+        }
+
         // code to pass linter check, delete later
+        updateFightStatus(firstFighterStatus, secondFighterStatus, true);
         if (firstFighterStatus.health > secondFighterStatus.health) resolve(firstFighter);
         // code to pass linter check, delete later
     });
